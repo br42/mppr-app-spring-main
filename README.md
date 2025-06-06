@@ -38,7 +38,7 @@ Para fazer o deploy desse projeto rode
 
 ## Stack utilizada
 
-<!--**Front-end:** React, Next.JS-->
+**Front-end:** Nenhum utilizado neste projeto
 
 **Back-end:** Spring Boot, Spring Framework, Java
 
