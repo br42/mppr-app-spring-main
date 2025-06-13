@@ -1,0 +1,15 @@
+📝 Atividade: Explique o pipeline de entrega
+
+Cada participante deve produzir um pequeno texto respondendo (texto ou mapa mental) a pergunta:
+
+  • Explique o pipeline de entrega
+
+R.:
+
+Também é necessária uma ferramenta de CI (por exemplo, Gitlab CI, Github Actions, Jenkins, etc.).
+
+Essa ferramente de CI precisa de, pelo menos, uma esteira (pipeline) configurada nela, com um processo que inclua ao menos: 
+    • Compilação (Build), que consiste da compilação dos artefatos necessários para executar a aplicação (executáveis, binários, arquivos compactados, arquivos JAR, pacotes, dentre outros);
+    • Testes e Análise Estática do código (Testing, Analysis), usando tanto testes de unidade, de integração e de funcionalidades criados pelos desenvolvedores, assim como ferramentas existentes de análise estática de código, tais como, por exemplo: SonarQube, ESLint, dentre outras;
+    • Notificação com o retorno dos resultados dos testes e análises (Notify/Feedback), com, por exemplo, relatórios dos testes e das análises do código gerados pelas ferramentas citadas no item anterior;
+    • E por fim Empacotamento, ou seja, a construção de artefatos para implantação, além da própria Implantação (Packaging, Deploy). Essa implantação em si no ambiente produção não necessariamente precisa ocorrer de maneira automática, embora ela tecnicamente poderia.

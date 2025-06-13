@@ -1,0 +1,13 @@
+📝 Atividade: Diferencie CI, CD e Deploy Contínuo
+
+Cada participante deve produzir um pequeno texto respondendo (texto ou mapa mental) a pergunta:
+
+  • Diferencie CI, CD e Deploy Contínuo
+
+R.:
+
+CI se refere à Continuous Integration (Integração Contínua), que é um conjunto de práticas que busca garantir que as revisões de código (commits) desenvolvidas sejam integradas de forma contínua à base de código principal (main branch / trunk). Além disso, testes automáticos devem ser executados a cada nova alteração do código para garantir que o código com essas alterações funciona corretamente e segue um certo padrão de qualidade. Portanto, cada uma dessas revisões deve representar uma versão funcional e implantável da base de código, além de descreverem bem as alterações realizadas a fim de facilitar a pesquisa e a navegação pelas diferentes revisões do código, especialmente em projetos com um histórico de alterações extensos. Isso também implica a necessidade de uma ferramenta de controle de versões para gerenciar as diferentes revisões do código, como por exemplo o Git, o Subversion ou o Mercurial, mas não necessariamente algum desses. Também é necessária uma ferramenta de CI (por exemplo, Gitlab CI, Github Actions, Jenkins, etc.). Essa ferramente de CI precisa de, pelo menos, uma esteira (pipeline) configurada nela, com um processo que inclua ao menos: Compilação (Build); Testes e Análise Estática do código (Testing, Analysis); Notificação com o retorno dos resultados dos testes e análises (Notify/Feedback); e por fim Empacotamento, ou seja, a construção de artefatos para implantação, além da própria Implantação (Packaging, Deploy). Essa implantação em si no ambiente produção não necessariamente precisa ocorrer de maneira automática, embora ela tecnicamente poderia.
+
+CD se refere à Continuous Delivery (Entrega Contínua), que consiste na prática de sempre manter a aplicação de uma forma que cada nova versão possa ser implantada, na automatização das etapas de compilação, testes e empacotamento, e uma busca constante pela redução do intervalo de tempo entre o desenvolvimento de novas versões e revisões do código e a real entrega delas.
+
+Deploy Contínuo (Implantação Contínua) está uma etapa além da CD (Entrega Contínua), consistindo na realização da implantação (deploy) automática após os testes, disponibilizando sempre a revisão mais recente do software aos usuários, desde que essa revisão passe nos testes a fim de garantir seu correto funcionamento, exigindo portanto um certo nível de qualidade dessas revisões antes de sua implantação.
