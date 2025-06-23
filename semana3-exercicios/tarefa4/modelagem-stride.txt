@@ -1,0 +1,63 @@
+📝 Atividade: Identificar riscos com STRIDE
+
+Realize uma modelagem de ameaças usando a metodologia STRIDE em uma funcionalidade da sua aplicação.
+
+Passo a passo:
+  1.  Escolha uma funcionalidade hipotética (ex: login, cadastro, listagem).
+  2.  Para cada letra da sigla STRIDE, responda:
+      a.  Existe algum risco?
+      b.  Se sim, qual seria?
+      c.  Que tipo de atacante se beneficiaria?
+  3.  Documente em um arquivo
+
+┌───────┬────────────────────────┬──────────────────────────────────────────┐
+│ Letra │ Tipo de Ameaça         │ O que significa                          │
+├───────┼────────────────────────┼──────────────────────────────────────────┤
+│   S   │ Spoofing               │ Falsificação de identidade               │
+├───────┼────────────────────────┼──────────────────────────────────────────┤
+│   T   │ Tampering              │ Alteração não autorizada                 │
+├───────┼────────────────────────┼──────────────────────────────────────────┤
+│   R   │ Repudiation            │ Negação de ações realizadas              │
+├───────┼────────────────────────┼──────────────────────────────────────────┤
+│   I   │ Information Disclosure │ Vazamento/Acesso não autorizado a dados  │
+├───────┼────────────────────────┼──────────────────────────────────────────┤
+│   D   │ Denial of Service      │ Interrupção do funcionamento normal      │
+├───────┼────────────────────────┼──────────────────────────────────────────┤
+│   E   │ Elevation of Privilege │ Ganho indevido de permissões             │
+└───────┴────────────────────────┴──────────────────────────────────────────┘
+
+R.:
+
+Considerando a funcionalidade de cadastro e posterior alteração dos dados pessoais:
+
+• S – Spoofing:
+    - Existem Riscos? Sim
+    - Riscos: O atacante poderia criar uma conta no nome de outra pessoa, com dados (CPFs, números de cartões de crédito, fotografia, documentos, etc.) obtidos, por exemplo, via Phising, e então comprar produtos no nome dessa pessoa.
+    - Quem seria beneficiado: O Atacante poderia comprar e receber produtos que serão cobrados de outra pessoa, pela conta estar no nome dela com os dados dela. Além disso, o atacante poderia ainda cometer atos indevidos no nome dessa outra pessoa, a fim de culpá-la e/ou não ser responsabilizado por tais ações.
+
+• T – Tampering:
+    - Existem Riscos? Sim
+    - Riscos: O atacante poderia forjar requisições para a API de backend e/ou para o Servidor de Banco de Dados (por exemplo, via as Ferramentas de Desenvolvedor dentro de um Navegador Web, ou via ataques de SQL injection) e, caso não tenha validação nessa API, alterar os próprios dados ou os dados de outros usuários de forma arbitrária ou indevida.
+    - Quem seria beneficiado: O Atacante poderia fraudar os próprios dados ou os de outros usuários para benefício próprio. Por exemplo, para receber permissões que não teria direito, enviar cobranças de produtos para outros usuários, colocar conteúdos ofensivos nos perfis de outros usuários, alterar, exportar ou destruir os dados contidos no Sistema de Banco de Dados, etc.
+
+• R – Repudiation:
+    - Existem Riscos? Sim
+    - Riscos: O atacante poderia criar itens, criar e editar avaliações, escrever e editar comentários, enviar e remover fotos, alterar o próprio perfil, etc, e depois alegar que não foi ele que fez isso, que sua conta pode ter sido invadida, ou que a alteração foi realizada pela moderação do site, etc.
+    - Quem seria beneficiado: O Atacante poderia realizar ações e depois negar sua autoria delas com base na anonimidade (caso a API não armazene o histórico de revisões e mudanças no registros), alegando que não realizou determinada ação e tentando se absolver de quaisquer responsablidades e culpas devidas.
+
+• I – Information Disclosure:
+    - Existem Riscos? Sim
+    - Riscos: O atacante poderia forjar requisições à API a fim de obter dados pessoais e/ou sigilosos de outros usuários, produtos, informações sobre a infraestrutura interna do produto e da empresa, e outros dados aos quais ele não teria acesso normalmente.
+    - Quem seria beneficiado: O Atacante poderia utilizar esses dados pessoais de outros usuários para realizar ataques de Spoofing, Phishing, dentre outros. Além disso, as informações sobre a infraestrutura interna da empresa e do produto poderiam ser utilizados para futuros ataques contra a empresa e contra esse produto em particular.
+
+• D – Denial of Service:
+    - Existem Riscos? Sim
+    - Riscos: O atacante poderia automatizar requisições para o site ou para a API numa taxa maior do que o servidor pode processar, resultando em uma sobrecarga e, por fim, em negação desses serviços aos usuários legítimos, impedindo o acesso deles.
+    - Quem seria beneficiado: O Atacante poderia usar isso para derrubar o sistema, prejudicando os usuários legítimos que não conseguirão usar esse sistema devido a essa demanda excessiva, além de causar potenciais danos e prejuízos financeiros à empresa por conta da largura de banda e tempo de processamento sendo utilizados nestge ataque, o que pode ser cobrado dessa empresa em uma fatura mensal no caso de sistemas em nuvem.
+
+• E – Elevation of Privilege:
+    - Existem Riscos? Sim
+    - Riscos: O atacante poderia forjar requisições para a API de backend e/ou para o Servidor de Banco de Dados (por exemplo, via as Ferramentas de Desenvolvedor dentro de um Navegador Web, ou via ataques de SQL injection) e, caso não tenha validação nessa API, alterar os próprios dados ou de alguma conta de forma a garantir para si permissões que não poderiam ser obtidas de forma legítima.
+- Quem seria beneficiado: O Atacante poderia fraudar os próprios dados ou os de outros usuários para benefício próprio. Por exemplo, para enviar cobranças arbitrárias e mensagens arbitárias para outros usuários, colocar conteúdos ofensivos nos perfis de outros usuários, alterar, exportar ou destruir os dados contidos no Sistema de Banco de Dados. Além disso, com acesso à infraestrutura física ou virtualizada, mesmo que de forma remota, o Atacante poderia também roubar dados sensíveis dos servidores, criptografar os dados via um Ransomware, instalar Backdoors ou Rootkits de difícil detecção, etc.
+
+
