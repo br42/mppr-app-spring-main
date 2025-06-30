@@ -28,3 +28,4 @@ build/
 # Uploads e arquivos dinâmicos
 uploads/
 storage/
+mysql/

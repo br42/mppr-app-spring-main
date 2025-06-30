@@ -10,25 +10,66 @@ import { AppError, Status } from '../error/ErrorHandler.js'
 import { encryptPassword } from '../utils/senhaUtils.js'
 import { pacienteSchema } from './pacienteYupSchema.js';
 import { sanitizacaoPaciente } from './pacienteSanitizations.js'
+import { query, Result, validationResult, ResultFactory } from 'express-validator';
+import { ValidationError } from 'yup';
 
-export const consultaPorPaciente = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  const { userInput } = req.query;
-  const query = `SELECT * FROM paciente WHERE nome = ?`;
-  try {
-    const listaPacientes = await AppDataSource.manager.query(query, [userInput]);
-    if (listaPacientes.length === 0) {
-      res.status(404).json('Paciente não encontrado!');
-    } else {
-      res.status(200).json(listaPacientes);
-    }
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({ message: 'Erro interno do servidor' });
-  }
+const validarPaciente = (nomePaciente: string): string => {
+  return nomePaciente.toString().replace(/[^a-zA-ZÀ-ÅÇ-ÏÑ-ÖÙ-Üà-åç-ïñ-öù-ü\s'-]/g, '').trim().replace(/  +/g, ' ');
 }
+
+const formatarErrosValidacaoPaciente: ResultFactory<string> = validationResult.withDefaults({
+  formatter: (error) => {
+    return error.msg as string;
+  }
+});
+
+export const consultaPorPaciente = [
+  query('userInput')
+    .isString().withMessage("Não é uma string")
+    .notEmpty().withMessage("String vazia")
+    .isLength({ min: 2, max: 80 }).withMessage("Precisa ser entre 2 e 80 caracteres")
+    .not().matches(/==|<script>/g).withMessage("Tentativa de injeção de código")
+    .customSanitizer((item) => item.replace(/[^a-zA-ZÀ-ÅÇ-ÏÑ-ÖÙ-Üà-åç-ïñ-öù-ü\s'-]*/g , ''))
+    .trim().customSanitizer((item) => item.replace(/  +/g, ' '))
+    .notEmpty().withMessage("String vazia após remoção de caracteres inválidos")
+    //.custom((item) => { console.log(`"${item}"`); return true; })
+    ,
+
+  async (
+    req: Request,
+    res: Response
+  ): Promise<void> => {
+    const result: Result = validationResult(req);
+    const errors = result.array();
+    //const errors: string[] = formatarErrosValidacaoPaciente(req).array();
+
+    try {
+      result.throw();
+    } catch (e) {
+      res.status(400).json({
+        mesage: 'Nome de paciente inválido!',
+        errors: result.mapped(),
+      });
+      return;
+    }
+
+    const { userInput } = req.query;
+
+    let pacienteSanitizado = validarPaciente(userInput as string);
+    const query = `SELECT * FROM paciente WHERE nome = ?`;
+    try {
+      const listaPacientes = await AppDataSource.manager.query(query, [pacienteSanitizado]);
+      if (listaPacientes.length === 0) {
+        res.status(404).json('Paciente não encontrado!');
+      } else {
+        res.status(200).json(listaPacientes);
+      }
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ message: 'Erro interno do servidor' });
+    }
+  }
+]
 
 
 export const criarPaciente = async (

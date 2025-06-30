@@ -15,6 +15,7 @@
 		"experimentalDecorators": true,
 		"moduleResolution": "node",
 		"strictNullChecks": true,
+		"preserveWatchOutput": true,
 	},
 	"include": [
 		"./src/**/*",

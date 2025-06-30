@@ -6,7 +6,7 @@ export default class ClienteRedis {
 
   constructor (prefixo: string) {
     this.cliente = createClient({
-      url: 'redis://localhost:6379'
+      url: `redis://${process.env.REDIS_HOST?process.env.REDIS_HOST:"localhost"}:${process.env.REDIS_PORT?process.env.REDIS_PORT:"6379"}`
     })
 
     this.prefixo = prefixo
